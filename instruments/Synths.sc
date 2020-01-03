@@ -167,6 +167,18 @@ SynthDef(\waveShapeV3, {
 
 
 
+// ----------------------------------------; // FX and Filters
+
+SynthDef(\compander, {|in=10, thresh=0.5, control=0.9, pan=0, out=0, amp=1, gate=1 |
+	var sig, env;
+
+	sig= Compander.ar(Pan2.ar(In.ar(in),pan).distort,WhiteNoise.ar(control),thresh,mul:0.99)*amp;
+	env= EnvGen.kr(Env.adsr(0.01,0.01, 1, 0.5, 1),gate, doneAction:2);
+
+	Out.ar(out, sig*env)
+
+}).add;
+
 
 
 
